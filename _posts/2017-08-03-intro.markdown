@@ -1,0 +1,42 @@
+---
+title:  "Intro"
+date:   2017-08-03 12:00:02 -0700
+---
+
+<div class="alert alert-info alert-fit">
+This API is always tested with the latest GA release of SSC, starting with 17.2.
+</div>
+
+## What's in the box?
+- [Node](nodejs.org)
+- Javascript ES6
+- [Mocha](https://mochajs.org/) testing framework 
+
+## Mocha
+Mocha is a testing framework that allows the running of test suites comprised of test cases. 
+Normally a [component]_spec.js is one test suite that performs test for that component.
+This project consists of a few spec files that perform different tasks on SSC via the REST API.
+
+## Swagger
+Swagger allows the generation of code from a spec file that SSC provides. SSC hosts a spec file generated based on the API calls exposed.
+
+![SSC API Docs]({{ site.baseurl }}/img/api-doc-screen-3.png "SSC API Docs")
+
+## Swagger-js
+
+This project uses the js implementation of code generation based on the spec file.
+See https://github.com/swagger-api/swagger-js/tree/2.x for more detail (we use version 2.x since SSC exposes that version, different than 3.x).
+
+<pre><code class="javascript">
+...
+//restClient.js
+new Swagger({
+        url: `${config.sscAPIBase}/spec.json`, //this loads the spec file from SSC
+        usePromise: true,
+    }).then((api) => {
+        console.log("successfully loaded swagger spec. Attempting to call heartbeat /features ");
+        that.api = api;
+        async.waterfall([
+            function getToken(callback) {
+...
+</code></pre>

@@ -1,0 +1,73 @@
+---
+title:  "Setup"
+date:   2017-08-03 12:00:01 -0700
+---
+## Prerequisites 
+
+[Node + NPM](https://nodejs.org/en/) > 6.11 
+
+
+## Installation
+```
+npm install
+```
+or
+```
+yarn install
+```
+
+## Usage
+
+### Environment Variables
+Configuration parameters required for these samples to run, need to be set as environment variables. 
+These parameters include SSC URLs and credentials.
+
+For convinience the [dotEnv](https://www.npmjs.com/package/dotenv) node module is used.
+In the root of the project createa file named ```.env```. 
+Edit the ```.env``` file and defined the environment variables. These will get picked up by Node and be avaliable to the running sample.
+
+<pre><code class="javascript">
+//.env
+// no trailing slash e.g., http://localhost:8080/ssc
+SSC_URL=http[s]://[host]:[port]/[ssc_context]  
+SSC_USERNAME=changeme
+SSC_PASSWORD=changeme
+//DisableSSLSecurity=true
+</code></pre>
+
+> You can also simply define these environment variables in the shell that is launching the app.
+
+#### config.js
+
+Edit the config.js file and set params.
+
+<pre><code class="javascript">
+{ 
+    versionIdCSV: "aa-version-sample.csv", //filename with comma seperated application version ids
+    batchSize: 2, //rest call parrallel batch size - how many version to call in parallel in one batch (batches executed sequentually)
+    sampleFPR: '/fpr/Logistics_1.3_2013-01-17.fpr',
+    sampleVersionId: 2,
+    downloadFolder: "/downloads"//relative to root project, wil be created if non existant
+}
+</code></pre>
+
+## Run
+To see the full list of scripts, view the package.json file and look in the ```scripts``` property.
+<pre><code class="javascript">
+"scripts": {
+    "predict": "mocha --compilers js:babel-core/register test/auditAssistantBatchPredict_spec.js",
+    "train": "mocha --compilers js:babel-core/register test/auditAssistantBatchTraining_spec.js",
+    "createVersion": "mocha --compilers js:babel-core/register test/createVersion_spec.js"
+    ...
+  },
+</code></pre>
+
+>*SSL*
+>You might encounter an UNABLE_TO_VERIFY_LEAF_SIGNATURE problem running this tool against a deployment of SSC running on SSL. 
+>To bypass security checks in this tool, set an environment variable called DisableSSLSecurity, and then run the script.
+>For example, in a Windows command window: 
+
+<pre><code class="javascript">
+set DisableSSLSecurity=true
+npm run createVersion
+</code></pre>

@@ -1,0 +1,65 @@
+---
+title:  "Get Issues"
+date:   2017-08-03 11:02:01 -0700
+type: "spec"
+command: "npm run getVersionIssues"
+commandSub: "sscAPIBase, sampleVersionId"
+---
+
+## Overview
+Issues can be revireted from an application via the `issue-of-project-version-controller`.
+This section shows a simple retrival of issues with a filter and a way to get all issues from a version in batches.
+
+## Get Version Issues in batches
+Application versions may have a large number of issues and so for performance reasons it is recommeneded to 
+retrieve them in batches. The folloing code shows the calling code with the call back that is called for each batch of 20 issues. The promise is resolved when all batches are done.
+
+> This sample code is an entry point to some buisiness logic around all or a subset of a version's issues.
+
+<pre><code class="javascript">
+//issues_spec.js
+    it('get all issues with batching', function (done) {
+        //3rd parameter is the callback for each batch
+        restClient.getAllIssueOfVersion(config.sampleVersionId, 20, (issues) => {
+
+            
+            console.log("next batch received: \n");
+            console.log("-----------------------");
+            console.log(issues.map(elem => elem.primaryLocation).join(", "));
+            console.log("-----------------------");
+
+
+        }).then((allCount) => {
+            //ALL DONE
+            console.log(chalk.green("successfully got a total of = " + allCount + " issues"));
+            done();
+        }).catch((err) => {
+            console.log(chalk.red("error listing issues"), err)
+            done(err);
+        });
+  });
+    
+</code></pre>
+
+
+## Filter issues using Fortify Search Syntax
+The code belows shows how to filter issues of a version by a custom tag with ```guid = 87f2364f-dcd4-49e6-861d-f8d3f351686b -> 4th value (exploitable)``` AND ```issues of category SQL Injections```.
+```11111111-1111-1111-1111-111111111165``` is the guid of the ```Category``` attribute of an issue.
+To get the meta data that includes these guids you can use the ```issue-selector-set-of-project-version-controller``` controller.
+
+The filter paramter has the format:
+```filter=TYPE[typeid]:val,TYPE2[typeid]:val```
+
+<pre><code class="javascript">
+//issues_spec.js
+    it('should filter issues ', function (done) {
+        restClient.getIssues(config.sampleVersionId, 0, "CUSTOMTAG[87f2364f-dcd4-49e6-861d-f8d3f351686b]:4,ISSUE[11111111-1111-1111-1111-111111111165]:SQL Injection").then((response) => {
+            console.log('filter found:' + (response.obj.data ? response.obj.data.length : 0) + ' issues');
+            done();
+    }).catch((err) => {
+        console.log(chalk.red("error filtering issues"), err)
+        done(err);
+    });
+  });
+    
+</code></pre>

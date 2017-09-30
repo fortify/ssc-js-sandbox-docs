@@ -1,0 +1,66 @@
+---
+title:  "Print API Info"
+date:   2017-08-03 11:01:11 -0700
+type: "spec"
+command: "npm run apiInfo"
+commandSub: ""
+---
+## Overview
+This section shows how to print controller names and the API calls they include.
+
+
+### Using Swagger code generation
+The code below will use the generated swagger API layer to extract controller names and their avaliable API calls.
+
+<pre><code class="javascript">
+    //restClient.js
+    /**
+     * returns an array of {name: "controller name", apis: ["apifunc1", "apifunc2"...]}
+     */
+    getControllers() {
+        const restClient = this;
+        //get list of controllers (includes all Javascript properties so filter out anything not an object)
+        const controllersNames = Object.keys(restClient.api).filter((item) => {
+            ...
+        })
+        //attach to each controller list of funcitons.
+        const result = controllersNames.map((name)=>{
+            ...
+        })
+        return result;
+    }
+</code></pre>
+
+### Printing Controllers
+
+<pre><code class="javascript">
+//apiInfo_spec.js
+    
+    /* this row will return an object similar to this:
+    * "{"name":"application-state-controller","apis":["getApplicationState","putApplicationState"]}"
+    */
+    const controllers = restClient.getControllers();
+
+    ...
+
+</code></pre>                            
+
+#### Output
+
+<pre><code class="javascript">
+...
+
+parser-plugin-image-controller, getParserPluginImage 
+local-user-controller, multiDeleteLocalUser,listLocalUser,createLocalUser,deleteLocalUser,readLocalUser,updateLocalUser 
+ldap-server-controller, multiDeleteLdapServer,listLdapServer,createLdapServer,doCollectionActionLdapServer,deleteLdapServer,readLdapServer,updateLdapServer 
+ldap-object-controller, multiDeleteLdapObject,listLdapObject,createLdapObject,doCollectionActionLdapObject,deleteLdapObject,readLdapObject,updateLdapObject 
+job-priority-change-category-warning-of-job-controller, listJobPriorityChangeCategoryWarningOfJob 
+job-controller, listJob,readJob,updateJob,doActionJob 
+issue-view-template-controller, listIssueViewTemplate,readIssueViewTemplate 
+issue-template-controller, multiDeleteIssueTemplate,listIssueTemplate,deleteIssueTemplate,readIssueTemplate,updateIssueTemplate 
+issue-summary-of-project-version-controller, listIssueSummaryOfProjectVersion 
+
+...
+</code></pre> 
+
+

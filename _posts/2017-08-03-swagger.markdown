@@ -1,0 +1,60 @@
+---
+title:  "Swagger"
+date:   2017-08-03 11:05:15 -0700
+---
+## Using Swagger to Make a Call to SSC
+
+### Step 1 - Identifying the controller
+Use the Swagger UI that is integrated with SSC to view the list of controllers. See the image above.
+This example shows how to make a call to send a version to Audit Assistant for training.
+The same steps apply to any RESTful action.
+
+> Note: An easy way to figure out what controller or what set of API calls are needed to complete an action is to look at what the UI is doing. For example, to create a version that is considered "committed" (ready for use), two actual calls are needed. 
+> The UI uses a utility API called the Bulk API. Using chrome dev tools you can see exactly what is being sent. That should allow you to identify what controllers are in use and what Swagger code you need to use.
+
+![Create Version Chrome]({{ site.baseurl }}/img/api-create-version.png "Create Version Chrome")
+
+### Step 2 - Using Swagger UI to construct a request
+See this image for the *Action API* that can be performed for an application version (http//...resource/action).
+The parameters that this API accepts are highlighted.
+
+![Project Version Action]({{ site.baseurl }}/img/api-swagger-ui.png "Project Version Action")
+
+Now for the code:
+<pre><code class="javascript">
+//restClient.js
+
+    /**
+     * send for prediction or training or future actions when implemented
+     * @param {*} versionId 
+     * @param {*} actionType //i.e SEND_FOR_TRAINING
+     */
+    sendToAA(versionId, actionType) {
+          ...
+          restClient.api["project-version-controller"].doActionProjectVersion({
+                "id": versionId, resourceAction: { "type": actionType }
+            }, ...).then((resp) => {
+             ...
+        });
+    }
+</code></pre>
+
+You will see that the *id* and *resourceAction* match the names of the fields highlighted in the image above.
+
+> We are constantly working on improving the Swagger-generated documentation to accurately match the fields names, required nested fields, and so on. If you are missing infomration, please see the previous note about using the Chrome dev tools to track UI calls.
+
+### Handling the result
+Two options are available for handling handle results: using promises or callbacks.
+This example uses promises. The default is not to use promises. Here is where they are enabled:
+
+<pre><code class="javascript">
+new Swagger({
+    ...
+    usePromise: true,
+}).then((api) => {
+    ...
+</code></pre>
+
+When using promises, the pattern used is:
+
+```controller.apiCall(..).then(successCallback).catch(errorCallback)```
