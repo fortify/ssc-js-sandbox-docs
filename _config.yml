@@ -3,7 +3,7 @@ description: > # this means to ignore newlines until "baseurl:"
   A sandbox project including samples and workflows with the SSC REST API. 
   This project is intended as a tutorial to encourage learning the API and a quick way to get started.
 
-baseurl: "" # the subpath of your site, e.g. /blog
+baseurl: "/ssc-js-sandbox-docs" # the subpath of your site, e.g. /blog
 url: "https://fortify.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 
 
