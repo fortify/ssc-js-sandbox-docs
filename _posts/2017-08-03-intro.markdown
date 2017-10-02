@@ -3,7 +3,7 @@ title:  "Intro"
 date:   2017-08-03 12:00:02 -0700
 ---
 
-<div class="alert alert-info alert-fit">
+<div class="alert alert-info alert-fit alert-bare">
 This API is always tested with the latest GA release of SSC, starting with 17.2.
 </div>
 

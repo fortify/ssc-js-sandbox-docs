@@ -29,6 +29,10 @@ nav .navbar-brand {
 .alert.alert-fit {
   width: fit-content  
 }
+.alert.alert-info.alert-bare {
+  background-color: transparent !important;
+  border: 1px solid #0073E7 !important;
+}
 .logo {
   width: 32px;
   display: inline-block;
