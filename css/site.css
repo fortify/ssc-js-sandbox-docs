@@ -3,7 +3,11 @@
 em {
   font-weight: bold;
 }
-/* missing quantum overrides */
+
+#top-nav .navbar-header {
+  margin-left: 40px;
+}
+
 nav.navbar-fixed-top {
   background-color: #0079ef;
   color: white;
@@ -34,11 +38,11 @@ nav .navbar-brand {
   border: 1px solid #0073E7 !important;
 }
 .logo {
-  width: 32px;
+  position: absolute;
+  left:0;
+  top:0;
+  height: 100%;
   display: inline-block;
-  float: left;
-  margin-top: 10px;
-  margin-right: 10px;
   background-color: #00abf3;
 }
 
