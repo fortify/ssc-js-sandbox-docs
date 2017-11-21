@@ -1,4 +1,4 @@
----
+ ---
 title:  "Authentication"
 date:   2017-08-03 11:03:15 -0700
 ---
@@ -6,15 +6,21 @@ date:   2017-08-03 11:03:15 -0700
 The Swagger spec enforces security schemas for any API call.
 The call order needed to successfully authenticate with SSC is as follows:
 
-1. Call to obtain a unified login token using basic http auth.
+1. Call to obtain a token using basic http auth.
+
+    a. in the sample code, a "UnifiedLoginToken" is generated for use with subsequent calls. It is generated with a short-lifetime of 0.5 days which is quite sufficient for the small set of operations.  The token will be automatically deleted by the system sometime after it expires.  This approach may be suitable for one-off scripts. 
+ 
+    b. Alternately, if the script is used for a daily automation, the username/pwd may not be available for each run. In that case, a long-lived token (lifetime of several months or more) such as "AnalysisUploadToken" or "AuditToken" should be generated offline using the REST api or the legacy "fortifyclient" tool. This token must be persisted and will be re-used by each daily run of the automation. 
+
 2. Make all subsequent calls to SSC passing that token.
+3. Cleanup any tokens that are not needed for the next run of the automation. And always re-use long-lived tokens. 
 
+The ```initialize()``` function in the restClient.js takes care of generating the UnifiedLoginToken, and the ```clearTokensOfUser()``` takes care of cleaning up all the test user tokens at the end of the run. 
 
-The ```initialize()``` function in the restClient.js takes care of that.
 > If you are not familar with the async library please read [this](https://caolan.github.io/async/docs.html#waterfall){:target="_blank"}. The waterfall function basically runs a set of async functions sequentially. The ```callback``` method tells the next function to start.
 
 ### Getting the token
-```api``` is the reference to the Swagger-generated object.
+ ```api``` is the reference to the Swagger-generated object.
 We call the ```createAuthToken``` passing required parameters. In the Promise resolving callback (```then```), we take the token from the resolve and pass on to the next waterfall handler. 
 > The first parameter in the callback is reserved for error objects.
 
@@ -27,7 +33,10 @@ We call the ```createAuthToken``` passing required parameters. In the Promise re
             const restClient = this;
             return new Promise((resolve, reject) => {
                 const auth = 'Basic ' + new Buffer(config.user + ':' + config.password).toString('base64');
-
+                 /* do not create token again if we already have one. 
+                  * In general, for automations either use a short-lived (<1day) token such as "UnifiedLoginToken"
+                  * or preferably, use a long-lived token such as "AnalysisUploadToken"/"JenkinsToken" (lifetime is several months)
+                  * and retrieve it from persistent storage. DO NOT create new long-lived tokens for every run!!  */
                 restClient.api["auth-token-controller"].createAuthToken({ authToken: { "terminalDate": getExpirationDateString(), "type": type } }, {
                     responseContentType: 'application/json',
                     clientAuthorizations: {
