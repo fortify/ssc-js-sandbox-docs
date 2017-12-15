@@ -1,5 +1,5 @@
 ---
-title:  "Createa and Assign an attribute to Versions"
+title:  "Batch Attribute"
 date:   2017-08-03 11:02:12 -0700
 type: "spec"
 command: "npm run assignAttributeVersions_spec"
@@ -18,7 +18,7 @@ Once responses are returned for all versions in a batch, the next batch is sent 
 
 ## Setup
 
-This script creates an attribute with a random name and then saves it's ```id``` for assignment part.
+This script creates an attribute with a random name and then saves it's ```Id``` for assignment part.
 
 An easy way to get the list of existing attribute defenitions is to run an HTTP GET API call to ```[host:port]/[ssc context]/api/v1/attributeDefinitions```.
 Sniffing the http trafic in the UI is also possible to get the attribute id.
