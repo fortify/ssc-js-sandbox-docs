@@ -8,7 +8,7 @@ This API is always tested with the latest GA release of SSC, starting with 17.2.
 </div>
 
 ## What's in the box?
-- [Node](nodejs.org)
+- [Node](https://nodejs.org)
 - Javascript ES6
 - [Mocha](https://mochajs.org/) testing framework 
 
