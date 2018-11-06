@@ -43,11 +43,11 @@ To obtain a list of all custom tags associated with an application version, run 
     ...
 </code></pre>
 
-The variable customTags stores the custom tags.
+The variable *customTags* stores the custom tags.
 
 ## Obtaining a Custom Tag and Adding it to the Custom Tag List
 
-Next, you obtain the custom tag object based on its the ID. Once you have the complete object, you can append it to the application version’s custom tags list. The variable customTags stores the custom tags list with the new custom tag object appended.
+Next, you obtain the custom tag object based on its the ID. Once you have the complete object, you can append it to the application version’s custom tags list. The variable *customTags* stores the custom tags list with the new custom tag object appended.
 
 To obtain the custom tag object based on its ID:
 
