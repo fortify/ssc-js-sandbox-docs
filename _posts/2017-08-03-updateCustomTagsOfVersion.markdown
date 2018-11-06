@@ -6,13 +6,17 @@ command: "npm run updateCustomTagsOfVersion"
 commandSub: "sscAPIBase, username, password, sampleVersionId, sampleCustomTagId"
 ---
 ## Overview
-This test case will get all custom tags of an existing application version, will get current object of selected custom tag and will append the custom tag to existing custom tag list of the application version.
-1. Get all Custom Tags of existing application version.
-2. Get an existing Custom Tag by ID and append it to Custom Tag list.
-3. Update the Custom Tags list of application version.
-## Get all Custom Tags of existing application version
-We obtain a list with all current Custom Tags related to a Project Version.
-The variable *customTags* will store the related Custom Tags.
+The test case described in this article does the following:
+1. Retrieves all custom tags for the application version
+2. Retrieves a custom tag based on its ID and appends it to custom tag list
+3. Updates the custom tags list for the application version
+
+The following sections describe how to perform these steps.
+
+## Obtaining all Custom Tags for an Application Version
+
+To obtain a list of all custom tags associated with an application version, run the following:
+
 <pre><code class="javascript">
 //updateCustomTagsOfVersion_spec.js
     ...
@@ -38,10 +42,15 @@ The variable *customTags* will store the related Custom Tags.
     }
     ...
 </code></pre>
-## Get existing Custom Tag by ID and append to Custom Tag list
-We need to get the existing Custom Tag Object with the ID that we've set up.
-Once we have the complete object, We can append it to the project version Custom Tags list.
-The variable *customTags* will carry Custom Tags List with the new Custom Tag Object appended.
+
+The variable customTags stores the custom tags.
+
+## Obtaining a Custom Tag and Adding it to the Custom Tag List
+
+Next, you obtain the custom tag object based on its the ID. Once you have the complete object, you can append it to the application version’s custom tags list. The variable customTags stores the custom tags list with the new custom tag object appended.
+
+To obtain the custom tag object based on its ID:
+
 <pre><code class="javascript">
 //updateCustomTagsOfVersion_spec.js
     ...
@@ -66,9 +75,11 @@ The variable *customTags* will carry Custom Tags List with the new Custom Tag Ob
     }
     ...
 </code></pre>
-## Update the Custom Tags list of application version
-In this section we will finally update the Custom Tags list related to Project Version.
-You may notice that any duplicate Custom Tag in list is ignored by API.
+
+## Updating the Custom Tags List for an Application Version
+
+To update the custom tags list for the application version:
+
 <pre><code class="javascript">
 //updateCustomTagsOfVersion_spec.js
     ...
@@ -92,3 +103,5 @@ You may notice that any duplicate Custom Tag in list is ignored by API.
     }
     ...
 </code></pre>
+
+Note that the API ignores any duplicate custom tags in the list.
