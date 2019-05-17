@@ -12,7 +12,7 @@ This section shows a simple retrival of issues with a filter and a way to get al
 
 ## Get Version Issues in batches
 Application versions may have a large number of issues and so for performance reasons it is recommeneded to 
-retrieve them in batches. The folloing code shows the calling code with the call back that is called for each batch of 20 issues. The promise is resolved when all batches are done.
+retrieve them in batches. The following code shows the calling code with the call back that is called for each batch of 20 issues. The promise is resolved when all batches are done.
 
 > This sample code is an entry point to some buisiness logic around all or a subset of a version's issues.
 

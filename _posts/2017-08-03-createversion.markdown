@@ -11,7 +11,7 @@ Creating a version in SSC is a three-part process.
 2. assign attributes / users / templates
 3. commit the version (ready for use)
 
-> One optional fourth step can be added if the ```options.copyCurrentState``` is set to ```true```, to copy aplicaiton state from an existing version.
+> One optional fourth step can be added if the ```options.copyCurrentState``` is set to ```true```, to copy applicaiton state from an existing version.
 
 > ``async.waterfall`` is not covered here. If you want to know more about it, see the Authentication section, which explains it better.
 

@@ -41,7 +41,7 @@ Now for the code:
 
 You will see that the *id* and *resourceAction* match the names of the fields highlighted in the image above.
 
-> We are constantly working on improving the Swagger-generated documentation to accurately match the fields names, required nested fields, and so on. If you are missing infomration, please see the previous note about using the Chrome dev tools to track UI calls.
+> We are constantly working on improving the Swagger-generated documentation to accurately match the fields names, required nested fields, and so on. If you are missing information, please see the previous note about using the Chrome dev tools to track UI calls.
 
 ### Handling the result
 Two options are available for handling handle results: using promises or callbacks.
