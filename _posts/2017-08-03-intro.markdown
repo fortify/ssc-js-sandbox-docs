@@ -25,7 +25,7 @@ Swagger allows the generation of code from a spec file that SSC provides. SSC ho
 ## Swagger-js
 
 This project uses the js implementation of code generation based on the spec file.
-See https://github.com/swagger-api/swagger-js/tree/2.x for more detail (we use version 2.x since SSC exposes that version, different than 3.x).
+See [Swagger](https://github.com/swagger-api/swagger-js/tree/2.x) for more detail (we use version 2.x since SSC exposes that version, different than 3.x).
 
 <pre><code class="javascript">
 ...
